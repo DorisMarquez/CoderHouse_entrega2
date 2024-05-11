@@ -66,11 +66,19 @@ DROP PROCEDURE IF EXISTS sp_3_registrar_salida;
 
 DELIMITER //
 CREATE PROCEDURE sp_3_registrar_salida (
-	IN id_salida INT, IN numero_solicitud VARCHAR(10), IN id_responsable_registro INT, 
-    IN turno ENUM('día', 'noche'), IN id_destino INT, IN id_area_solicitud INT, IN id_quien_recibe INT, 
-    IN id_producto_a INT, IN cantidad_a INT, 
-    IN id_producto_b INT, IN cantidad_b INT, 
-    IN id_producto_c INT, IN cantidad_c INT)
+	IN id_salida INT,
+	IN numero_solicitud VARCHAR(10),
+	IN id_responsable_registro INT, 
+    IN turno INT,
+	IN id_destino INT,
+	IN id_area_solicitud INT,
+	IN id_quien_recibe INT, 
+    IN id_producto_a INT,
+	IN cantidad_a INT, 
+    IN id_producto_b INT,
+	IN cantidad_b INT, 
+    IN id_producto_c INT,
+	IN cantidad_c INT)
 BEGIN
 	INSERT INTO salidas (id_salida, fecha, numero_solicitud, id_responsable_registro, 
     turno, id_destino, id_area_solicitud, id_quien_recibe)
@@ -89,3 +97,49 @@ DELIMITER ;
 
 /**************************************************************************************************************/
 
+
+
+-- tabla productos e inventario
+
+USE control_inventario;
+
+CALL sp_1_insertar_producto(1, 'descripción_producto_1', 4, 2, 1, 190);
+CALL sp_1_insertar_producto(2, 'descripción_producto_2', 1, 5, 4, 160);
+CALL sp_1_insertar_producto(3, 'descripción_producto_3', 7, 5, 2, 130);
+CALL sp_1_insertar_producto(4, 'descripción_producto_4', 10, 2, 1, 100);
+CALL sp_1_insertar_producto(5, 'descripción_producto_5', 1, 6, 9, 140);
+CALL sp_1_insertar_producto(6, 'descripción_producto_6', 9, 1, 4, 170);
+CALL sp_1_insertar_producto(7, 'descripción_producto_7', 7, 6, 9, 130);
+CALL sp_1_insertar_producto(8, 'descripción_producto_8', 8, 6, 5, 190);
+CALL sp_1_insertar_producto(9, 'descripción_producto_9', 10, 1, 7, 210);
+CALL sp_1_insertar_producto(10, 'descripción_producto_10', 1, 2, 3, 90);
+
+
+-- tabla entrada, detalle_entradas e inventario
+
+USE control_inventario;
+
+CALL sp_2_registrar_entrada( 1, 'G-1', 10, 1, 16, 8, 4, 15, 46, 6, 16, 13 );
+CALL sp_2_registrar_entrada( 2, 'G-2', 12, 1, 10, 8, 4, 9, 46, 6, 16, 13 ); 
+CALL sp_2_registrar_entrada( 3, 'G-3', 11, 1, 11, 8, 5, 10, 449, 6, 13, 13 ); 
+CALL sp_2_registrar_entrada( 4, 'G-4', 13, 2, 10, 59, 5, 9, 449, 7, 19, 9 );
+CALL sp_2_registrar_entrada( 5, 'G-5', 10, 2, 18, 59, 5, 17, 449, 7, 15, 9 ); 
+CALL sp_2_registrar_entrada( 6, 'G-6', 12, 2, 17, 59, 7, 17, 9, 9, 19, 418 ); 
+CALL sp_2_registrar_entrada( 7, 'G-7', 11, 3, 17, 7, 8, 11, 12, 9, 19, 418 );
+CALL sp_2_registrar_entrada( 8, 'G-8', 13, 3, 14, 7, 8, 13, 12, 10, 17, 11); 
+CALL sp_2_registrar_entrada( 9, 'G-9', 10, 3, 20, 7, 8, 11, 12, 10, 21, 11 ); 
+CALL sp_2_registrar_entrada( 10, 'G-10', 12, 4, 16, 46, 9, 19, 418, 10, 18, 11 ); 
+
+
+-- tabla salidas, detalle_salidas e inventario
+
+CALL sp_3_registrar_salida(1, 'S-1', 10, 1, 18, 4, 6, 1, 7, 4, 8, 6, 9 );
+CALL sp_3_registrar_salida(2, 'S-2', 12, 2, 19, 6, 8, 1, 6, 4, 7, 6, 8 );
+CALL sp_3_registrar_salida(3, 'S-3', 11, 1, 18, 1, 3, 1, 9, 5, 20, 6, 10 );
+CALL sp_3_registrar_salida(4, 'S-4', 13, 2, 17, 1, 3, 2, 9, 5, 19, 7, 14 );
+CALL sp_3_registrar_salida(5, 'S-5', 10, 1, 11, 3, 5, 2, 8, 5, 22, 7, 13 );
+CALL sp_3_registrar_salida(6, 'S-6', 12, 2, 20, 4, 6, 2, 10, 7, 15, 9, 24 );
+CALL sp_3_registrar_salida(7, 'S-7', 11, 1, 7, 1, 3, 3, 4, 8, 5, 9, 23 );
+CALL sp_3_registrar_salida(8, 'S-8', 13, 2, 5, 6, 8, 3, 3, 8, 4, 10, 5 );
+CALL sp_3_registrar_salida(9, 'S-9', 10, 1, 7, 3, 5, 3, 6, 8, 8, 10, 4 );
+CALL sp_3_registrar_salida(10, 'S-10', 12, 2, 15, 4, 6, 4, 10, 9, 25, 10, 7 );

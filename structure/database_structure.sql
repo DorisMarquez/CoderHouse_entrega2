@@ -85,7 +85,7 @@ CREATE TABLE salidas (
 	fecha DATETIME DEFAULT (NOW()),
 	numero_solicitud VARCHAR(10) NOT NULL,
 	id_responsable_registro INT DEFAULT 10,
-	turno ENUM('día', 'noche'),
+	turno ENUM('dia', 'noche'),
 	id_destino INT ,
 	id_area_solicitud INT,
 	id_quien_recibe INT 
